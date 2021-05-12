@@ -25,11 +25,11 @@ set scrolloff=0
 color slate
 
 " Disable relative number when leaving a buffer
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-:augroup END
+" :augroup numbertoggle
+" :  autocmd!
+" :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+" :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+" :augroup END
 
 let g:rainbow_active = 1
 
@@ -60,6 +60,7 @@ call plug#begin('~/.vim/plugged')
 "  Plug 'overcache/NeoSolarized'
   Plug 'maxmellon/vim-jsx-pretty'
   Plug 'vim-scripts/DoxygenToolkit.vim'
+  Plug 'dhruvasagar/vim-table-mode'
 call plug#end()
 
 " Linter Settings
@@ -72,7 +73,11 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'eslint'
-let g:syntastic_javascript_eslint_args = '--fix'
+" let g:syntastic_javascript_eslint_args = '--fix'
+let g:syntastic_cpp_checkers = []
+" let g:syntastic_cpp_clang_tidy_args = '-p build-debug/'
+" let g:syntastic_cpp_clang_tidy_post_args = ""
+" let g:syntastic_cpp_cpplint_exec = 'cpplint'
 
 " see :h syntastic-loclist-callback
 function! SyntasticCheckHook(errors)
@@ -146,6 +151,9 @@ nnoremap <leader><Tab> /<--><CR>vf>s
 " JS
 autocmd FileType javascript nnoremap <leader>il oconst <--> = (<-->) => {<CR><--><CR>};<ESC>2k_/<--><CR>vf>s
 autocmd FileType javascript nnoremap <leader>ic oconst <--> = ({<-->}) => {<CR>return (<CR><><CR><Tab><--><CR><\><CR>);<CR>};<ESC>2k_/<--><CR>vf>s
+
+" C++
+autocmd FileType cpp nnoremap <leader>d :Dox<CR>
 
 " Protobuf
 autocmd FileType proto nnoremap <leader>in mb?^message \w\+ \{-\}{<CR>jVk$%k:s/\d\{-\};/1;<CR>?^message \w\+ \{-\}{<CR>ma/1;<CR>jV'a$%kg<c-a>:noh<CR>'b
