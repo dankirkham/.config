@@ -61,6 +61,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'maxmellon/vim-jsx-pretty'
   Plug 'vim-scripts/DoxygenToolkit.vim'
   Plug 'dhruvasagar/vim-table-mode'
+  Plug 'tpope/vim-eunuch' " :Move files
+  Plug 'majutsushi/tagbar'
+  Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()
 
 " Linter Settings
@@ -131,6 +134,9 @@ nnoremap <leader>q :wincmd q<CR>
 
 nnoremap <leader>s :set et<CR>
 nnoremap <leader>t :set noet<CR>
+
+nnoremap <leader>2 :set sw=2 ts=2<CR>
+nnoremap <leader>4 :set sw=4 ts=4<CR>
 
 nnoremap <silent> <leader>gd :YcmCompleter GoTo<CR>
 nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<CR>
