@@ -7,7 +7,7 @@ set number
 set tabstop=2
 set shiftwidth=2
 set autoindent
-set noexpandtab
+set expandtab
 
 set colorcolumn=80
 set nowrap
@@ -21,6 +21,10 @@ set ignorecase
 set incsearch
 
 set scrolloff=0
+
+" macOS compatibility
+set ffs=unix,dos
+set ff=unix
 
 color slate
 
@@ -56,14 +60,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 "  Plug 'airblade/vim-gitgutter'
   Plug 'vim-syntastic/syntastic'
-  Plug 'ycm-core/YouCompleteMe'
+"  Plug 'ycm-core/YouCompleteMe'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "  Plug 'overcache/NeoSolarized'
   Plug 'maxmellon/vim-jsx-pretty'
   Plug 'vim-scripts/DoxygenToolkit.vim'
   Plug 'dhruvasagar/vim-table-mode'
   Plug 'tpope/vim-eunuch' " :Move files
   Plug 'majutsushi/tagbar'
-  Plug 'octol/vim-cpp-enhanced-highlight'
+"  Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()
 
 " Linter Settings
@@ -138,8 +143,35 @@ nnoremap <leader>t :set noet<CR>
 nnoremap <leader>2 :set sw=2 ts=2<CR>
 nnoremap <leader>4 :set sw=4 ts=4<CR>
 
-nnoremap <silent> <leader>gd :YcmCompleter GoTo<CR>
-nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<CR>
+" Ycm (YouCompleteMe)
+" nnoremap <silent> <leader>gd :YcmCompleter GoTo<CR>
+" nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<CR>
+" let g:ycm_clangd_args=['--header-insertion=never']
+" let g:autoclose_preview_window_after_completion = 1
+"
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
 nnoremap <leader>u :noh<CR>
 
