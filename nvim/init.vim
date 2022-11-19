@@ -1,7 +1,13 @@
+if has('win32')
+  let b:home = "%LOCALAPPDATA%"
+else
+  let b:home = "~"
+endif
+
 set listchars=tab:▸·,trail:·
 set list
 
-set relativenumber
+set norelativenumber
 set number
 
 set tabstop=2
@@ -26,6 +32,10 @@ set scrolloff=0
 set ffs=unix,dos
 set ff=unix
 
+set signcolumn=yes
+
+set updatetime=300
+
 color slate
 
 " Disable relative number when leaving a buffer
@@ -43,16 +53,16 @@ if !has('gui_running')
 endif
 
 " Keybinds
-map <C-P> :Files<CR>
+map <C-R> :Files<CR>
 
 " Plugins
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob(b:home . '/.vim/autoload/plug.vim'))
+  execute '!curl -fLo' . 'b:home' . '/.vim/autoload/plug.vim --create-dirs' .
+    \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(b:home . '/.vim/plugged')
 "  Plug 'preservim/nerdtree'
 "  Plug 'frazrepo/vim-rainbow'
   Plug 'itchyny/lightline.vim'
@@ -143,12 +153,26 @@ nnoremap <leader>t :set noet<CR>
 nnoremap <leader>2 :set sw=2 ts=2<CR>
 nnoremap <leader>4 :set sw=4 ts=4<CR>
 
-" Ycm (YouCompleteMe)
-" nnoremap <silent> <leader>gd :YcmCompleter GoTo<CR>
-" nnoremap <silent> <leader>gr :YcmCompleter GoToReferences<CR>
-" let g:ycm_clangd_args=['--header-insertion=never']
-" let g:autoclose_preview_window_after_completion = 1
-"
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
@@ -173,22 +197,19 @@ function! ShowDocumentation()
   endif
 endfunction
 
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
 nnoremap <leader>u :noh<CR>
 
 nnoremap <leader>vr :source $MYVIMRC<CR>
 nnoremap <leader>ve :e $MYVIMRC<CR>
 
-" Tab nav
-nnoremap <Left> :tabprevious<CR>
-nnoremap <Right> :tabnext<CR>
-nnoremap <c-t> :tabnew<CR>
-
 " Jump to snippet
 nnoremap <leader><Tab> /<--><CR>vf>s
-
-" JS
-autocmd FileType javascript nnoremap <leader>il oconst <--> = (<-->) => {<CR><--><CR>};<ESC>2k_/<--><CR>vf>s
-autocmd FileType javascript nnoremap <leader>ic oconst <--> = ({<-->}) => {<CR>return (<CR><><CR><Tab><--><CR><\><CR>);<CR>};<ESC>2k_/<--><CR>vf>s
 
 " C++
 autocmd FileType cpp nnoremap <leader>d :Dox<CR>
