@@ -53,7 +53,7 @@ if !has('gui_running')
 endif
 
 " Keybinds
-map <C-R> :Files<CR>
+map <C-E> :Files<CR>
 
 " Plugins
 if empty(glob(b:home . '/.vim/autoload/plug.vim'))
