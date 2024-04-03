@@ -57,7 +57,7 @@ map <C-E> :Files<CR>
 
 " Plugins
 if empty(glob(b:home . '/.vim/autoload/plug.vim'))
-  execute '!curl -fLo' . 'b:home' . '/.vim/autoload/plug.vim --create-dirs' .
+  execute '!curl -fLo ' . b:home . '/.vim/autoload/plug.vim --create-dirs ' .
     \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
