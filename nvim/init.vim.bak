@@ -79,6 +79,7 @@ call plug#begin(b:home . '/.vim/plugged')
   Plug 'tpope/vim-eunuch' " :Move files
   Plug 'majutsushi/tagbar'
 "  Plug 'octol/vim-cpp-enhanced-highlight'
+  Plug 'https://gitlab.com/dankirkham/spade-vim'
 call plug#end()
 
 " Linter Settings
