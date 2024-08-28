@@ -1,3 +1,15 @@
 {
+  "languageserver": {
+    "spade": {
+      "command": "/home/dan/Projects/spade-language-server/target/release/spade-language-server",
+      "args": [],
+      "filetypes": ["spade"],
+      "cwd": "",
+      "initializationOptions": {
+      },
+      "settings": {
+      }
+    }
+  },
   "diagnostic.checkCurrentLine": true
 }
