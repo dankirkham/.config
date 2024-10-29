@@ -2,7 +2,7 @@
 
 TMUX_VERSION="3.5a"
 echo Building tmux...
-sudo apt-get install yacc
+sudo apt-get install -y libevent-dev ncurses-dev build-essential bison pkg-config libevent ncurses
 mkdir -p tmp_tmux
 cd tmp_tmux
 wget https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
