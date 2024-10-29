@@ -2,7 +2,7 @@
 
 TMUX_VERSION="3.5a"
 echo Building tmux...
-sudo apt-get install byacc
+sudo apt-get install yacc
 mkdir -p tmp_tmux
 cd tmp_tmux
 wget https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
