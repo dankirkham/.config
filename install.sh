@@ -4,4 +4,4 @@ mkdir -p ~/.config
 cp -Rv .config/* ~/.config/
 
 sh scripts/install_neovim.sh
-# sh scripts/install_tmux.sh
+sh scripts/install_tmux.sh
