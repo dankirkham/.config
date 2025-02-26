@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-TMUX_VERSION="3.2"
+TMUX_VERSION="3.5"
 echo ========== 🪟 Building tmux ==========
 sudo apt-get install -y libevent-dev ncurses-dev build-essential bison pkg-config
 mkdir -p tmp_tmux
