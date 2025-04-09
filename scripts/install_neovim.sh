@@ -1,8 +1,9 @@
 #!/usr/bin/env sh
 
 echo ========== ⌨️ Installing neovim ==========
-wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+wget https://github.com/neovim/neovim/releases/download/v0.11.0/nvim-linux-x86_64.tar.gz
 mkdir -p ~/.local/
-tar xvf nvim-linux64.tar.gz
-rm nvim-linux64.tar.gz
-mv nvim-linux64/* ~/.local/
+tar xvf nvim-linux-x86_64.tar.gz
+rm nvim-linux-x86_64.tar.gz
+cp -R nvim-linux-x86_64/* ~/.local/
+rm -rf nvim-linux-x86_64
